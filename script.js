@@ -1,6 +1,14 @@
 // Code goes here
 //<![CDATA[
 window.onload=function(){
+ 
+function highlightCharms(charms){
+  var index;
+  for (index = 0; index < charms.length; ++index){
+    $( "g[style]:contains('"+charms[index]+"')" ).prev().children().attr("fill", "#ffd966");
+  }
+}
+
 mxTooltipHandler.prototype.ignoreTouchEvents = !1;
 
 mxTooltipHandler.prototype.reset = function(a, b) {
