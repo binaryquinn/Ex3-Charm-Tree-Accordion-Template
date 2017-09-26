@@ -40,7 +40,7 @@ mxTooltipHandler.prototype.reset = function(a, b) {
 
 };
 
-$("g > g > g").on("mousedown touch", function(event) {
+$(document).on('"mousedown touch","g > g > g", function(event) {
   modal.style.display = "block";
   var maximum = (($(window).height()) / 2) - ($(".modal-header").height() + $(".modal-footer").height());
   var contentHeight = $("#modalContent").height() + 40;
