@@ -1,19 +1,11 @@
 // Code goes here
 //<![CDATA[
 window.onload=function(){
-
-function makeAccordion(content) {
+  function makeAccordion(content) {
   $(".accordionWrapper").append(content);
 }
 google.script.run.withSuccessHandler(makeAccordion).makeAll();
- 
-function paintCharms(charms) {
-  for (var index = 0; index < charms.length; ++index) {
-    $( "g[style]:contains('"+charms[index]+"')" ).prev().children().attr("fill", "#ffd966");
-  }
-}
-google.script.run.withSuccessHandler(paintCharms).getCharmList();
-  
+
 mxTooltipHandler.prototype.ignoreTouchEvents = !1;
 
 mxTooltipHandler.prototype.reset = function(a, b) {
