@@ -51,11 +51,11 @@ $(document).on("mousedown touch","g[style], g[transform]", function(event) {
 
 var accItem = document.getElementsByClassName('accordionItem');
 var accHD = document.getElementsByClassName('accordionItemHeading');
-for (i = 0; i < accHD.length; i++) {
-  accHD[i].addEventListener('click', toggleItem, false);
-}
+//for (i = 0; i < accHD.length; i++) {
+  //accHD[i].addEventListener('click', toggleItem, false);
+//}
 
-function toggleItem() {
+$(document).on("mousedown touch", "accordionItemHeading", function(event) {
   var itemClass = this.parentNode.className;
   for (i = 0; i < accItem.length; i++) {
     accItem[i].className = 'accordionItem close';
@@ -63,7 +63,7 @@ function toggleItem() {
   if (itemClass == 'accordionItem close') {
     this.parentNode.className = 'accordionItem open';
   }
-}
+});
 
 var modal = document.getElementById('myModal');
 
