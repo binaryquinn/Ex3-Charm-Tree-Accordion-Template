@@ -1,12 +1,55 @@
 // Code goes here
 //<![CDATA[
 window.onload=function(){
-  function makeAccordion(content) {
-  $(".accordionWrapper").append(content);
+
+function makeAccordion(content) {
+
+  var itemBegin = '<div class="accordionItem close"><h2 class="accordionItemHeading">';
+  var contentBegin ='</h2><div class="accordionItemContent"><div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;lightbox&quot;:false,'+
+                 '&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile&gt;&lt;diagram&gt;';
+  var contentEnd =  '&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}\"></div></div></div>';
+  var index;
+  
+  for(var src = 0; src < content.length; src++){
+
+    var treeCore = content[src][2];
+    var index;
+    var insertionPt;
+    var innerFront;
+    var innerEnd;
+    for(index = 0; index < content[src][1].length; ++index) {
+      insertionPt = treeCore.indexOf('"', treeCore.indexOf('style="',treeCore.indexOf(content[src][1][index]))+7);
+
+      innerFront = treeCore.substring(0,insertionPt);   
+      innerEnd = treeCore.substring(insertionPt);
+      treeCore = innerFront + 'fillColor=#FFD966;' + innerEnd;
+    }
+    
+    content[src][2] = encode(treeCore);
+  }
+ 
+
+ 
+  for (index = 0; index < content.length; ++index) {
+    $(".accordionWrapper").append(itemBegin+content[index][0]+contentBegin+content[index][2]+contentEnd);    
+  }
+  
+  [
+    'https://draw.io/js/viewer.min.js',
+    'https://rawgit.com/binaryquinn/Ex3-Charm-Tree-Accordion-Template/master/viewer-extension.js'
+  ].forEach(function(src) {
+  var script = document.createElement('script');
+  script.src = src;
+  script.async = false;
+  document.head.appendChild(script);
+}); 
 }
+
 google.script.run.withSuccessHandler(makeAccordion).makeAll();
 
-$(document).on("mousedown touch","g[style], g[transform]", function(event) {
+
+$(document).on("mousedown touch"," g rect  , foreignObject div div ", function(event) {
+
   modal.style.display = "block";
   var maximum = (($(window).height()) / 2) - ($(".modal-header").height() + $(".modal-footer").height());
   var contentHeight = $("#modalContent").height() + 40;
@@ -17,11 +60,8 @@ $(document).on("mousedown touch","g[style], g[transform]", function(event) {
 
 var accItem = document.getElementsByClassName('accordionItem');
 var accHD = document.getElementsByClassName('accordionItemHeading');
-//for (i = 0; i < accHD.length; i++) {
-  //accHD[i].addEventListener('click', toggleItem, false);
-//}
 
-$(document).on("mousedown touch", "accordionItemHeading", function(event) {
+$(document).on("click touch", ".accordionItemHeading", function(event) {
   var itemClass = this.parentNode.className;
   for (i = 0; i < accItem.length; i++) {
     accItem[i].className = 'accordionItem close';
@@ -42,7 +82,7 @@ span.onclick = function() {
   modal.style.display = "none";
 };
 
-window.onclick = function(event) {
+window.onmousedown = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
