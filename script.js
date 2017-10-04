@@ -18,7 +18,7 @@ function makeAccordion(content) {
     var innerFront;
     var innerEnd;
     for(index = 0; index < content[src][1].length; ++index) {
-      insertionPt = treeCore.indexOf('"', treeCore.indexOf('style="',treeCore.indexOf('name="'+content[src][1][index]))+7);
+      insertionPt = treeCore.indexOf('"', treeCore.indexOf('style="',treeCore.indexOf('="'+content[src][1][index]))+7);
 
       innerFront = treeCore.substring(0,insertionPt);   
       innerEnd = treeCore.substring(insertionPt);
