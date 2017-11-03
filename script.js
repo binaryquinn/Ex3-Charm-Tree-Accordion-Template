@@ -4,7 +4,7 @@ window.onload=function(){
 
 function highlightCharm(charmTree, index, start) {
   var tree = charmTree[2];
-  var charm = charmTree[1][index];
+  var charm = charmTree[1][index].trim();
 
   var stylePt;
   var styleData;
