@@ -13,7 +13,7 @@ function highlightCharm(charmTree, index, start) {
   var innerEnd;
     
    stylePt = tree.indexOf('style="',tree.indexOf('="'+ charm, start))+7;
-   if(stylePt > -1)
+   if(tree.indexOf('="'+ charm, start) > -1)
    {
     insertionPt = tree.indexOf('"', stylePt);
     styleData = tree.substring( stylePt, insertionPt);
