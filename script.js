@@ -2,6 +2,33 @@
 //<![CDATA[
 window.onload=function(){
 
+function highlightCharm(charmTree, index, start) {
+  var tree = charmTree[2];
+  var charm = charmTree[1][index];
+
+  var stylePt;
+  var styleData;
+  var insertionPt;
+  var innerFront;
+  var innerEnd;
+    
+   stylePt = tree.indexOf('style="',tree.indexOf('="'+ charm, start))+7;
+   if(stylePt > -1)
+   {
+    insertionPt = tree.indexOf('"', stylePt);
+    styleData = tree.subtring( stylePt, insertionPt);
+    if( styleData.indexOf('#FFD966;') > -1) {
+       start = insertionPt;
+       highlightCharm(charmTree, index, start);
+    }
+    else {
+      innerFront = tree.substring(0,insertionPt);   
+      innerEnd = tree.substring(insertionPt);
+      charmTree[2] = innerFront + 'fillColor=#FFD966;' + innerEnd;
+    }
+  }
+}
+
 function makeAccordion(content) {
 
   var itemBegin = '<div class="accordionItem close"><h2 class="accordionItemHeading">';
@@ -12,20 +39,24 @@ function makeAccordion(content) {
   
   for(var src = 0; src < content.length; src++){
 
+    
     var treeCore = content[src][2];
     var index;
+    var stylePt;
     var insertionPt;
     var innerFront;
     var innerEnd;
     for(index = 0; index < content[src][1].length; ++index) {
-      insertionPt = treeCore.indexOf('"', treeCore.indexOf('style="',treeCore.indexOf('="'+content[src][1][index]))+7);
+      highlightCharm( content[src], index, 0);
+//       stylePt = treeCore.indexOf('style="',treeCore.indexOf('="'+content[src][1][index]))+7;
+//       insertionPt = treeCore.indexOf('"', stylePt);
 
-      innerFront = treeCore.substring(0,insertionPt);   
-      innerEnd = treeCore.substring(insertionPt);
-      treeCore = innerFront + 'fillColor=#FFD966;' + innerEnd;
+//       innerFront = treeCore.substring(0,insertionPt);   
+//       innerEnd = treeCore.substring(insertionPt);
+//       treeCore = innerFront + 'fillColor=#FFD966;' + innerEnd;
     }
     
-    content[src][2] = encode(treeCore);
+    content[src][2] = encode(content[src][2]);
   }
  
 
