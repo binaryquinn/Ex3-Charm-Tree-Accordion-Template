@@ -16,15 +16,16 @@ function highlightCharm(charmTree, index, start) {
    if(stylePt > -1)
    {
     insertionPt = tree.indexOf('"', stylePt);
-    styleData = tree.subtring( stylePt, insertionPt);
+    styleData = tree.substring( stylePt, insertionPt);
     if( styleData.indexOf('#FFD966;') > -1) {
        start = insertionPt;
        highlightCharm(charmTree, index, start);
     }
     else {
-      innerFront = tree.substring(0,insertionPt);   
+      styleData += 'fillColor=#FFD966;'
+      innerFront = tree.substring(0,stylePt);   
       innerEnd = tree.substring(insertionPt);
-      charmTree[2] = innerFront + 'fillColor=#FFD966;' + innerEnd;
+      charmTree[2] = innerFront + styleData + innerEnd;
     }
   }
 }
